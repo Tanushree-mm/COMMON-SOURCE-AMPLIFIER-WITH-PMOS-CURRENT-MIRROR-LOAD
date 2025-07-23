@@ -1,0 +1,106 @@
+1. Create a New Library
+In Virtuoso: File → New → Library
+
+Name: CS_Amp_Lab4
+
+Attach Technology: gpdk180
+
+2. Create a New Cell View
+In Library Manager: File → New → Cell View
+
+Cell name: CS_Amplifier
+
+Tool: Virtuoso Schematic Editor
+
+View: schematic
+
+3. Schematic Design
+Instantiate transistors using gpdk180:
+
+NMOS (M1): W = 6 µm, L = 180 nm
+
+PMOS (M2, M3 - current mirror): W = 8.85 µm, L = 180 nm
+
+Use:
+
+VDD = 3.3V (from analogLib → vdc)
+
+Vbias_P = 100 μA (from analogLib → isin)
+
+Vin = small AC signal (from analogLib → vsin)
+
+Capacitor = 500 fF
+
+Resistor = 10 μΩ
+
+GND (from analogLib)
+
+4. Check and Save
+Design → Check and Save
+
+5. Create Symbol
+Create → Cellview → From Cellview
+
+Set pins: Vin, Vout, VDD, Vbias_P, GND
+
+6. Create Testbench
+Create new cell view: e.g., CS_Amplifier_tb
+
+Instantiate the symbol created
+
+Add:
+
+VDD = 3.3V
+
+Vbias_P = 100 μA
+
+Vin = AC signal with:
+
+AC magnitude: 1 V
+
+Amplitude: 10 μV
+
+Frequency: 10 kHz
+
+Load capacitor: 500 fF
+
+Resistor to GND if needed
+
+Connect all appropriately
+
+7. Launch ADE L
+Launch → ADE L
+
+8. Setup Simulation
+Simulator: Spectre
+
+Model Libraries: Add .scs file from gpdk180
+
+Analyses:
+
+Transient:
+
+Stop time: 10 µs (or more as needed)
+
+AC Analysis:
+
+Sweep frequency (e.g., 1 Hz to 1 GHz)
+
+9. Select Outputs
+Outputs → Setup → From Design
+
+Add Vin, Vout signals
+
+10. Run Simulation
+Simulation → Netlist and Run
+
+11. Analyze Results
+Use Tools → Calculator to:
+
+Measure Gain = Vout / Vin
+
+For UGB:
+
+Results → Direct Plot → AC Magnitude & Phase
+
+Place marker at 0 dB → Frequency = Unity Gain Bandwidth
